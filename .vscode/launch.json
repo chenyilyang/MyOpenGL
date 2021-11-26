@@ -1,0 +1,25 @@
+{
+    "configurations": [
+    {
+        "name": "OpenGL Example",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/../output/${fileBasenameNoExtension}",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "preLaunchTask": "Build OpenGL Example",
+        "setupCommands": [
+            {
+                "description": "为 gdb 启用整齐打印",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    }
+    ]
+}

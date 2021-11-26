@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iosfwd": "cpp",
+        ".vert": "vert",
+        ".frag": "vert",
+        ".glsl": "vert",
+    }
+}

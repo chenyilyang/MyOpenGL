@@ -4,5 +4,6 @@
         ".vert": "vert",
         ".frag": "vert",
         ".glsl": "vert",
+        "ostream": "cpp"
     }
 }

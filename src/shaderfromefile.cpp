@@ -36,15 +36,14 @@ int main(void) {
 
     //build and compile our shader program
     //------------------------------------
-    Shader triangleShader("shaders/shaderfromfile.vert", "shaders/shaderfromfile.frag");
-    
+    Shader triangleShader("../shaders/shaderfromfile.vert", "../shaders/shaderfromfile.frag");
     //set up vertex data (and buffers) and config vertex attributes
     //-------------------------------------------------------------
     float vertices[] = {
         //position      //color
-        .0f, .5f, .0f,  1.0f, 0.0f, 0.0f,//top right
-        .5f, -.5f, .0f, 0.0f, 1.0f, 0.0f,//bottom right
-        -.5f, -.5f, .0f,0.0f, 0.0f, 1.0f//bottom left
+        .0f, .5f, .0f,  1.0f, 0.5f, 0.2f,//top right
+        .5f, -.5f, .0f, 0.2f, 1.0f, 0.5f,//bottom right
+        -.5f, -.5f, .0f,0.5f, 0.2f, 1.0f//bottom left
     };
     unsigned int indices [] = {//note that we start from 0
         0, 1, 2,//first triangle

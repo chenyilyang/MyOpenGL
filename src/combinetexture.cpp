@@ -62,11 +62,11 @@ int main(void) {
     //set up vertex data (and buffers) and config vertex attributes
     //-------------------------------------------------------------
     float vertices[] = {
-        //position      //color           //texture coords
-        .5f, .5f, .0f,  1.0f, 0.5f, 0.2f, 1.0f, 1.0f,//top right
-        .5f, -.5f, .0f, 0.2f, 1.0f, 0.5f, 1.0f, 0.0f,//bottom right
-        -.5f, -.5f, .0f,0.5f, 0.2f, 1.0f, 0.0f, 0.0f,//bottom left
-        -.5f, .5f, .0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f//top left
+        //position          //color             //texture coords
+        .5f, .5f, .0f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,//top right
+        .5f, -.5f, .0f,   0.2f, 1.0f, 0.5f,   1.0f, 0.0f,//bottom right
+        -.5f, -.5f, .0f,  0.5f, 0.2f, 1.0f,   0.0f, 0.0f,//bottom left
+        -.5f, .5f, .0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f//top left
     };
     unsigned int indices [] = {//note that we start from 0
         0, 1, 3,//first triangle
@@ -116,7 +116,7 @@ int main(void) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     //load image,create texture and generate mipmaps
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true);
+    //stbi_set_flip_vertically_on_load(true);
     unsigned char * data = stbi_load("../resources/textures/container.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
@@ -177,6 +177,11 @@ int main(void) {
         glClearColor(.2f, .3f, .4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         //change color as animation
+        unsigned int transformLoc = glGetUniformLocation(combineBoxShader.ID, "transform");
+        glm::mat4 trans(1.0);
+        trans = glm::rotate(trans, glm::radians(90.0f * static_cast<float>(sin(glfwGetTime() / 2.0f) + 0.5f)), glm::vec3(0.0, 0.0, 1.0));
+        trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
         combineBoxShader.setFloat("anim_time", (sin(glfwGetTime() / 2.0f) + 0.5f));
         combineBoxShader.setFloat("mixValue", mixValue);
         //glDrawArrays(GL_TRIANGLES, 0, 6);

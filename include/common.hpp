@@ -1,5 +1,6 @@
 #define STB_IMAGE_IMPL
 #include "stb_image.h"
+#include "camera.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -11,18 +12,32 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+
 glm::vec3 cameraPos(0.0f, 0.0f, 10.0f);
 glm::vec3 cameraFront(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp(0.0f, 1.0f, 0.0f);
 float cameraSpeed = 0.05f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+float pitch = 0.0f;
+float lastX = 0.0f;
+float lastY = 0.0f;
+float fov = 45.0f;
+float yaw = -90.0f;
+bool firstMouse = true;
 float fps() {
     float currFrame = glfwGetTime();
     deltaTime = currFrame - lastFrame;
     lastFrame = currFrame;
     return 1.0f / deltaTime;
 }
+
+void framebuffer_size_callback(GLFWwindow * window, int width, int height);
+void mouse_callback(GLFWwindow * window, double xpos, double ypos);
+void scroll_callback(GLFWwindow * window, double xoffset, double yoffset);
+void processInput(GLFWwindow * window);
+
 //windows size change callback
 void framebuffer_size_callback(GLFWwindow * window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -86,4 +101,46 @@ bool checkProgramLinkingResult(unsigned int program) {
         return false;
     }
     return true;
+}
+void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+
+    lastX = xpos;
+    lastY = ypos;
+
+    camera.processMouseMovement(xoffset, yoffset);
+}
+void scroll_callback(GLFWwindow * window, double xoffset, double yoffset) {
+    camera.processMouseScroll(yoffset);
+}
+
+void processInput(GLFWwindow * window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE))
+    {
+        glfwSetWindowShouldClose(window, true);
+    }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        camera.processKeyboard(FORWARD, deltaTime);
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        camera.processKeyboard(BACKWARD, deltaTime);
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        camera.processKeyboard(LEFT, deltaTime);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        camera.processKeyboard(RIGHT, deltaTime);
+    }
+    
 }

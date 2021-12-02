@@ -1,6 +1,5 @@
 #include "common.hpp"
 #include "shaderutils.hpp"
-
 #define ERROR_CREATE_WINDOW -1
 #define ERROR_LOADING_GLAD -2
 #define ERROR_OPENGL -3
@@ -20,50 +19,6 @@ const glm::vec3 cubePositions[] = {
     glm::vec3(-1.3f, 1.0f, -1.5f),
 };
 float mixValue = 0.2f;
-void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;//reversed since y-coordinates go from bottom to top
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.05f;//change this value to your liking
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw += xoffset;
-    pitch += yoffset;
-    //make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (pitch > 89.0f)
-    {
-        pitch = 89.0f;
-    }
-    if (pitch < -89.0f)
-    {
-        pitch = -89.0f;
-    }
-    glm::vec3 front;
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
-}
-void scroll_callback(GLFWwindow * window, double xoffset, double yoffset) {
-    fov -= (float)yoffset;
-    if (fov < 1.0f)
-    {
-        fov = 1.0f;
-    }
-    if (fov > 45.0f)
-    {
-        fov = 45.0f;
-    }
-}
 void combineTextureProcessInput(GLFWwindow * window) {
     common_process_input(window);
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
@@ -110,6 +65,10 @@ int main(void) {
     }
     lastX = SCR_WIDTH / 2.0f;
     lastY = SCR_HEIGHT / 2.0f;
+    bool firstMouse = true;
+    //timing
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -274,9 +233,10 @@ int main(void) {
     //loop rendering
     while (!glfwWindowShouldClose(window))
     {
-        std::cout << "fps:" << fps() << std::endl;
+        fps();
+        // std::cout << "fps:" << fps() << std::endl;
         //inpuglViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-        combineTextureProcessInput(window);
+        processInput(window);
         //prerendering
         glClearColor(.2f, .3f, .4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -284,19 +244,15 @@ int main(void) {
         glEnable(GL_DEPTH_TEST);
         //view matrix
         unsigned int viewLoc = glGetUniformLocation(combineBoxShader.ID, "view");
-        // float radius = -18.0f;
-        // float camX = sin(glfwGetTime()) * radius;
-        // float camZ = cos(glfwGetTime()) * radius;
-        // glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.5f));
-        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         //projection matrix
         unsigned int projectionLoc = glGetUniformLocation(combineBoxShader.ID, "projection");
         glm::mat4 projection(1.0);
-        projection = glm::perspective(glm::radians(60.0f), static_cast<float>(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
         // projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
-
+        //camera view transformation
+        glm::mat4 view = camera.getViewMatrix();
+        combineBoxShader.setMat4("view", view);
         //change color as animation
         combineBoxShader.setFloat("anim_time", (sin(glfwGetTime() / 2.0f) + 0.5f));
         combineBoxShader.setFloat("mixValue", mixValue);

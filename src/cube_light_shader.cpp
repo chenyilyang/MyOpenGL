@@ -94,94 +94,49 @@ int main(void) {
     float vertices[] = {
         //front face
         //position        //color             //texture coords  //normal vector
-        .5f, .5f, .5f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,       0.0f, 0.0f, 1.0f,//top right
-        .5f, -.5f, .5f,   0.2f, 1.0f, 0.5f,   1.0f, 0.0f,       0.0f, 0.0f, 1.0f,//bottom right
+        -.5f, .5f, .5f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,       0.0f, 0.0f, 1.0f,//top right
+        .5f, .5f, .5f,   0.2f, 1.0f, 0.5f,   1.0f, 0.0f,       0.0f, 0.0f, 1.0f,//bottom right
         -.5f, -.5f, .5f,  0.5f, 0.2f, 1.0f,   0.0f, 0.0f,       0.0f, 0.0f, 1.0f,//bottom left
-        -.5f, .5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,       0.0f, 0.0f, 1.0f,//top left
+        .5f, -.5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,       0.0f, 0.0f, 1.0f,//top left
         //back face
         -.5f, .5f, -.5f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,     0.0f, 0.0f, -1.0f,//top right
         .5f, .5f, -.5f,   0.2f, 1.0f, 0.5f,   0.0f, 1.0f,       0.0f, 0.0f, -1.0f,//bottom right
         -.5f, -.5f, -.5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,      0.0f, 0.0f, -1.0f,//bottom left
         .5f, -.5f, -.5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,      0.0f, 0.0f, -1.0f,//top left
         //left face
-        -.5f, .5f, .5f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,      -1.0f, 0.0f, 0.0f,//top right
-        -.5f, .5f, -.5f,   0.2f, 1.0f, 0.5f,   0.0f, 1.0f,      -1.0f, 0.0f, 0.0f,//bottom right
+        -.5f, .5f, -.5f,    1.0f, 0.5f, 0.2f,   1.0f, 1.0f,      -1.0f, 0.0f, 0.0f,//top right
+        -.5f, .5f, .5f,   0.2f, 1.0f, 0.5f,   0.0f, 1.0f,      -1.0f, 0.0f, 0.0f,//bottom right
         -.5f, -.5f, -.5f,  0.5f, 0.2f, 1.0f,   0.0f, 0.0f,      -1.0f, 0.0f, 0.0f,//bottom left
         -.5f, -.5f, .5f,   1.0f, 1.0f, 0.0f,   1.0f, 0.0f,      -1.0f, 0.0f, 0.0f,//top left
         //right face
-        .5f, .5f, .5f,    1.0f, 0.5f, 0.2f,   0.0f, 1.0f,       1.0f, 0.0f, 0.0f,//top right
-        .5f, .5f, -.5f,   0.2f, 1.0f, 0.5f,   1.0f, 1.0f,       1.0f, 0.0f, 0.0f,//bottom right
+        .5f, .5f, -.5f,    1.0f, 0.5f, 0.2f,   0.0f, 1.0f,       1.0f, 0.0f, 0.0f,//top right
+        .5f, .5f, .5f,   0.2f, 1.0f, 0.5f,   1.0f, 1.0f,       1.0f, 0.0f, 0.0f,//bottom right
         .5f, -.5f, -.5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,       1.0f, 0.0f, 0.0f,//bottom left
         .5f, -.5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,       1.0f, 0.0f, 0.0f,//top left
         //top face
         -.5f, .5f, -.5f,    1.0f, 0.5f, 0.2f,   0.0f, 1.0f,     0.0f, 1.0f, 0.0f,//top right
         .5f, .5f, -.5f,   0.2f, 1.0f, 0.5f,   1.0f, 1.0f,       0.0f, 1.0f, 0.0f,//bottom right
-        .5f, .5f, .5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,         0.0f, 1.0f, 0.0f,//bottom left
-        -.5f, .5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,       0.0f, 1.0f, 0.0f//top left
+        -.5f, .5f, .5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,         0.0f, 1.0f, 0.0f,//bottom left
+        .5f, .5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,       0.0f, 1.0f, 0.0f,//top left
         //bottom face
         -.5f, -.5f, -.5f,    1.0f, 0.5f, 0.2f,   0.0f, 1.0f,    0.0f, -1.0f, 0.0f,//top right
         .5f, -.5f, -.5f,   0.2f, 1.0f, 0.5f,   1.0f, 1.0f,      0.0f, -1.0f, 0.0f,//bottom right
-        .5f, -.5f, .5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,        0.0f, -1.0f, 0.0f,//bottom left
-        -.5f, -.5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f//top left
+        -.5f, -.5f, .5f,  0.5f, 0.2f, 1.0f,   1.0f, 0.0f,        0.0f, -1.0f, 0.0f,//bottom left
+        .5f, -.5f, .5f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f//top left
     };
     unsigned int indices [] = {//note that we start from 0
-        0, 1, 3,//first triangle
+        0, 1, 2,//first triangle
         1, 2, 3,//second triangle
         4, 5, 6,
         5, 6, 7,
-        8, 9, 11,
+        8, 9, 10,
         9, 10, 11,
-        12, 13, 15,
+        12, 13, 14,
         13, 14, 15,
-        16, 17, 19,
+        16, 17, 18,
         17, 18, 19,
-        20, 21, 23,
-        21, 22, 23
-    };
-    float lightobjvertices[] = {
-        //position        
-        .5f, .5f, .5f,    
-        .5f, -.5f, .5f,   
-        -.5f, -.5f, .5f,  
-        -.5f, .5f, .5f,   
-        //back face
-        -.5f, .5f, -.5f,  
-        .5f, .5f, -.5f,   
-        -.5f, -.5f, -.5f, 
-        .5f, -.5f, -.5f,  
-        //left face
-        -.5f, .5f, .5f,   
-        -.5f, .5f, -.5f,  
-        -.5f, -.5f, -.5f, 
-        -.5f, -.5f, .5f,  
-        //right face
-        .5f, .5f, .5f,    
-        .5f, .5f, -.5f,   
-        .5f, -.5f, -.5f,  
-        .5f, -.5f, .5f,   
-        //top face
-        -.5f, .5f, -.5f,  
-        .5f, .5f, -.5f,   
-        .5f, .5f, .5f,  
-        -.5f, .5f, .5f, 
-        //bottom face
-        -.5f, -.5f, -.5f, 
-        .5f, -.5f, -.5f,  
-        .5f, -.5f, .5f, 
-        -.5f, -.5f, .5f,  
-    };
-    unsigned int lightObjectIndices [] = {
-        0, 1, 3,//first triangle
-        1, 2, 3,//second triangle
-        4, 5, 6,
-        5, 6, 7,
-        8, 9, 11,
-        9, 10, 11,
-        12, 13, 15,
-        13, 14, 15,
-        16, 17, 19,
-        17, 18, 19,
-        20, 21, 23,
+        20, 21, 22,
+        21, 22, 23,
     };
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -215,22 +170,6 @@ int main(void) {
     //You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
     //VAO requires a call to glBindVertexArray anyways so we generally don't unbind VAOS (nor VBOs) when it's not directly necessary.
     // glBindVertexArray(0);
-
-    unsigned int lightObjectVAO, lightVBO, lightEBO;
-    glGenVertexArrays(1, &lightObjectVAO);
-    glBindVertexArray(lightObjectVAO);
-    glGenBuffers(1, &lightVBO);
-    glGenBuffers(1, &lightEBO);
-
-    //We only need to bind to the VBO(to link it with glVertexAttribPointer), no need to fill it,the VBO's data alread contains all we need
-    glBindBuffer(GL_ARRAY_BUFFER, lightVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(lightobjvertices), lightobjvertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lightEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(lightObjectIndices), lightObjectIndices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
 
     //load and create a texture
     //-------------------------
@@ -282,7 +221,7 @@ int main(void) {
             unsigned int modelLoc = glGetUniformLocation(lightCubeShader.ID, "model");
             glm::mat4 model(1.0);
             model = glm::translate(model, cubePositions[i]);
-            model = glm::rotate(model, glm::radians(-25.0f * (i+1) * static_cast<float>(sin(glfwGetTime() / 2.0f) + 0.5f)), glm::vec3(0.5f, 1.0f, 0.5f));
+            // model = glm::rotate(model, glm::radians(-45.0f * (i+5) * static_cast<float>(sin(glfwGetTime() / 2.0f) + 0.5f)), glm::vec3(0.5f, 1.0f, 0.5f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
             
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
@@ -290,7 +229,7 @@ int main(void) {
 
         // draw light object    
         lightObjectShader.use();
-        glBindVertexArray(lightObjectVAO);
+        glBindVertexArray(VAO);
         lightObjectShader.setMat4("projection", projection);
         lightObjectShader.setMat4("view", view);
         glm::mat4 lightObjectModel(1.0f);
@@ -306,11 +245,8 @@ int main(void) {
     //optional:de-allocate all resources once they've outlived there purpose:
     //-----------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
-    glDeleteVertexArrays(1, &lightObjectVAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &lightVBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteBuffers(1, &lightEBO);
     glDeleteProgram(lightCubeShader.ID);
     //glfw: terminate, clearing all previously allocated GLFW resources.
     //------------------------------------------------------------------

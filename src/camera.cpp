@@ -20,7 +20,7 @@ const glm::vec3 cubePositions[] = {
     glm::vec3(-1.3f, 1.0f, -1.5f),
 };
 float mixValue = 0.2f;
-void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
+void mouse_callback_camera(GLFWwindow * window, double xpos, double ypos) {
     if (firstMouse)
     {
         lastX = xpos;
@@ -53,7 +53,7 @@ void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(front);
 }
-void scroll_callback(GLFWwindow * window, double xoffset, double yoffset) {
+void scroll_callback_camera(GLFWwindow * window, double xoffset, double yoffset) {
     fov -= (float)yoffset;
     if (fov < 1.0f)
     {
@@ -112,8 +112,8 @@ int main(void) {
     lastY = SCR_HEIGHT / 2.0f;
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
+    glfwSetCursorPosCallback(window, mouse_callback_camera);
+    glfwSetScrollCallback(window, scroll_callback_camera);
     //tell GLFW to capture our mouse
     // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glad

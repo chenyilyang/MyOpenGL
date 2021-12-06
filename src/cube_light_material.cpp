@@ -87,7 +87,7 @@ int main(void) {
 
     //build and compile our shader program
     //------------------------------------
-    Shader lightCubeShader("../shaders/cube.vert", "../shaders/cube.frag");
+    Shader lightCubeShader("../shaders/cube_material.vert", "../shaders/cube_material.frag");
     Shader lightObjectShader("../shaders/light_object.vert", "../shaders/light_object.frag");
     //set up vertex data (and buffers) and config vertex attributes
     //-------------------------------------------------------------
@@ -179,8 +179,8 @@ int main(void) {
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     
     // cube light
-    glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
-    glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
+    // glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+    // glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
     //loop rendering
     while (!glfwWindowShouldClose(window))
     {
@@ -209,15 +209,29 @@ int main(void) {
         //camera view transformation
         glm::mat4 view = camera.getViewMatrix();
         lightCubeShader.setMat4("view", view);
-        lightCubeShader.setVec3("objectColor", objectColor);
-        lightCubeShader.setVec3("lightColor", lightColor);
+        // lightCubeShader.setVec3("objectColor", objectColor);
+        // lightCubeShader.setVec3("lightColor", lightColor);
         lightCubeShader.setVec3("lightPos", lightObjectPosition);
         lightCubeShader.setVec3("viewPos", camera.Position);
+        
+        lightCubeShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        lightCubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        lightCubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        lightCubeShader.setFloat("material.shininess", 32.0f);
+
         //change color as animation
         // combineBoxShader.setFloat("anim_time", (sin(glfwGetTime() / 2.0f) + 0.5f));
         // combineBoxShader.setFloat("mixValue", mixValue);
         //glDrawArrays(GL_TRIANGLES, 0, 6);
+        glm::vec3 lightColor;
         for(unsigned int i = 0; i < 10; i++) {
+            //change color
+            lightColor.x = sin(glfwGetTime() * 1.0f);
+            lightColor.y = sin(glfwGetTime() * 1.7f);
+            lightColor.z = sin(glfwGetTime() * 1.3f);
+            lightCubeShader.setVec3("light.ambient", lightColor * glm::vec3(0.5f));
+            lightCubeShader.setVec3("light.diffuse", lightColor * glm::vec3(0.2f));
+            lightCubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
             //model matrix
             unsigned int modelLoc = glGetUniformLocation(lightCubeShader.ID, "model");
             glm::mat4 model(1.0);
